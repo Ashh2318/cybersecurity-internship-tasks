@@ -1,0 +1,105 @@
+{
+  "target": "192.168.1.100",
+  "assessment_time": "2025-12-23 19:17:58",
+  "overall_risk_level": "HIGH",
+  "high_risk_findings": [
+    {
+      "port": 21,
+      "service": "ftp",
+      "description": "FTP (Unencrypted file transfer)",
+      "severity": "HIGH"
+    },
+    {
+      "port": 445,
+      "service": "microsoft-ds",
+      "description": "SMB (File sharing - check for vulnerabilities)",
+      "severity": "HIGH"
+    },
+    {
+      "port": 3306,
+      "service": "mysql",
+      "description": "MySQL (Database - check authentication)",
+      "severity": "HIGH"
+    },
+    {
+      "port": 3389,
+      "service": "ms-wbt-server",
+      "description": "RDP (Remote Desktop - brute force target)",
+      "severity": "HIGH"
+    }
+  ],
+  "medium_risk_findings": [
+    {
+      "port": 80,
+      "service": "http",
+      "description": "HTTP (Unencrypted web traffic)",
+      "severity": "MEDIUM"
+    }
+  ],
+  "low_risk_findings": [
+    {
+      "port": 22,
+      "service": "ssh",
+      "description": "ssh service running",
+      "severity": "LOW"
+    }
+  ],
+  "misconfigurations": [
+    {
+      "issue": "FTP without encryption detected",
+      "port": 21,
+      "impact": "Credentials and data transmitted in cleartext",
+      "recommendation": "Use SFTP (port 22) or FTPS instead"
+    },
+    {
+      "issue": "HTTP without encryption",
+      "port": 80,
+      "impact": "Data transmitted in cleartext, vulnerable to MITM attacks",
+      "recommendation": "Use HTTPS (port 443) instead"
+    },
+    {
+      "issue": "SMB service exposed",
+      "port": 445,
+      "impact": "Vulnerable to EternalBlue and ransomware attacks",
+      "recommendation": "Enable SMB signing, use SMB3 with encryption"
+    },
+    {
+      "issue": "RDP service exposed to network",
+      "port": 3389,
+      "impact": "Target for brute force attacks",
+      "recommendation": "Use VPN, implement account lockout, enable NLA"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Immediately disable or secure high-risk services",
+      "details": "Services like FTP, Telnet, and unencrypted protocols should be replaced with secure alternatives"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Fix identified misconfigurations",
+      "details": "Review each misconfiguration and apply recommended fixes"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Implement firewall rules",
+      "details": "Block unnecessary ports and restrict access to required services only"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Enable encryption for all data transmission",
+      "details": "Use TLS/SSL for web services, SSH for remote access, and encrypted protocols for file transfers"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Regular security audits",
+      "details": "Schedule periodic vulnerability scans and penetration tests"
+    },
+    {
+      "priority": "LOW",
+      "action": "Monitor network traffic",
+      "details": "Implement IDS/IPS solutions to detect and prevent attacks"
+    }
+  ]
+}
